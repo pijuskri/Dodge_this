@@ -6,7 +6,7 @@ public class Shoot : MonoBehaviour
 
     public Rigidbody projectile;
     public Transform bulletSpawn;
-    private float projectileForce = 2000f;
+    private float projectileForce = 100f;
     private float fireRate = .25f;
 
     private float nextFireTime;
