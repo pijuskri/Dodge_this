@@ -33,9 +33,15 @@ public class CollisionPhysics : MonoBehaviour {
     {
         var speed = lastFrameVelocity.magnitude * 0.8f;
         var direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
+        var angle = Vector3.Angle(lastFrameVelocity, collisionNormal);
 
-        Debug.Log("Out Direction: " + direction);
+       
         rb.velocity = direction * Mathf.Max(speed, minVelocity);
+        //gameObject.transform.Rotate(collisionNormal.x * angle, collisionNormal.y * angle, collisionNormal.z * angle);
+        gameObject.transform.Rotate( (180 - angle) * collisionNormal.y * 2.1f, 0, 0);
+        //gameObject.transform.rotation. = new  (180 - angle, 0 , 0); 
+        Debug.Log("Out Direction: " + direction + " ;   Angle: " + angle + " ;  New Angle: " + gameObject.transform.rotation.x * 90);
+        //rb.rotation. = ;
     }
 
     /*public float maxAngle = 95;
