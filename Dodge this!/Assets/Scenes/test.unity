@@ -166,6 +166,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0a32d4eb1dba35c48967a16796db7f33, type: 3}
   m_IsPrefabParent: 0
+--- !u!4 &302253312 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: 0a32d4eb1dba35c48967a16796db7f33, type: 3}
+  m_PrefabInternal: {fileID: 288470525}
 --- !u!1 &974111242
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,6 +245,21 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 100008, guid: 0a32d4eb1dba35c48967a16796db7f33, type: 3}
   m_PrefabInternal: {fileID: 288470525}
+--- !u!114 &1506963070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1506963069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5976c25849b1445acf0f936e260ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 0}
+  bulletSpawn: {fileID: 302253312}
+  projectileForce: 500
+  fireRate: 0.25
 --- !u!4 &1506963071 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400008, guid: 0a32d4eb1dba35c48967a16796db7f33, type: 3}
