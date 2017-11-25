@@ -42,6 +42,7 @@ public class CollisionPhysics : MonoBehaviour {
     {
         dead++;
         if (dead > 3) { Destroy(gameObject);return; }
+        if(time > 5f) { Destroy(gameObject); return; }
 
         var speed = lastFrameVelocity.magnitude * 0.8f;
 
