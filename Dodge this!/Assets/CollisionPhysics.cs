@@ -29,7 +29,7 @@ public class CollisionPhysics : MonoBehaviour {
     private void Update()
     {
         time += Time.deltaTime;
-        if(time>0.05f) gameObject.GetComponent<MeshCollider>().enabled = true;
+        if(time>0.2f) gameObject.GetComponent<MeshCollider>().enabled = true;
         if (time > 10f) { Destroy(gameObject); return; }
         //Debug.Log(time);
         lastFrameVelocity = rb.velocity;
@@ -38,6 +38,7 @@ public class CollisionPhysics : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("lol");
         if (collision.gameObject.tag == "bullet") { Destroy(collision.gameObject); Destroy(gameObject); Destroy(collision.gameObject);return;}
         if (collision.gameObject.tag == "player") { player.GetComponent<Player>().health -= damage; Destroy(gameObject); return; }
         Bounce(collision.contacts[0].normal);

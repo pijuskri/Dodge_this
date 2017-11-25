@@ -27,6 +27,7 @@ public class Shoot : MonoBehaviour
     private float fireRate = .25f;
     private int gun = 0;
     private float nextFireTime;
+    private float nextShootTime=0;
 
     void Start()
     {
@@ -44,7 +45,7 @@ public class Shoot : MonoBehaviour
 
         guns[1] = new Gun();
         guns[1].name = "shotgun";
-        guns[1].bullets = 7;
+        guns[1].bullets = 30;
         guns[1].damage = 15;
         guns[1].fireRate = 1.5f;
         guns[1].fireMode = "semi";
@@ -55,7 +56,7 @@ public class Shoot : MonoBehaviour
         guns[2].name = "smg";
         guns[2].bullets = 1;
         guns[2].damage = 10;
-        guns[2].fireRate = 0.2f;
+        guns[2].fireRate = 0.01f;
         guns[2].fireMode = "auto";
         guns[2].gunObject = gunObjects[2];
         guns[2].bullet = bulletObjects[0];
@@ -112,19 +113,24 @@ public class Shoot : MonoBehaviour
         }
         else
         {
+            Quaternion rand;
             for (int i = 0; i < guns[gun].bullets; i++)
             {
-                Quaternion rand;
-                rand = Quaternion.Euler(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
-                //rand = Random.rotation;
-                cloneRb = Instantiate(projectile, bulletSpawn.position, bulletSpawn.rotation * rand) as Rigidbody;
-                cloneRb.AddForce(cloneRb.transform.forward * projectileForce);
+                if (Time.time > nextShootTime)
+                {
+                    rand = Quaternion.Euler(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
 
-                cloneRb.gameObject.GetComponent<CollisionPhysics>().player = gameObject;
-                cloneRb.gameObject.GetComponent<CollisionPhysics>().damage = (float)guns[gun].damage;
+                    cloneRb = Instantiate(projectile, bulletSpawn.position, bulletSpawn.rotation * rand) as Rigidbody;
+                    cloneRb.AddForce(cloneRb.transform.forward * projectileForce);
+
+                    cloneRb.gameObject.GetComponent<CollisionPhysics>().player = gameObject;
+                    cloneRb.gameObject.GetComponent<CollisionPhysics>().damage = (float)guns[gun].damage;
+                    nextShootTime = Time.time + 0.02f;
+                }
+                //else i--;
+                if (Time.time > 10) break;
             }
         }
-        
         nextFireTime = Time.time + fireRate;
     }
 }
