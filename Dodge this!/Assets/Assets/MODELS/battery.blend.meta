@@ -4,8 +4,30 @@ timeCreated: 1511555264
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
-  fileIDToRecycleName: {}
-  externalObjects: {}
+  fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Cylinder
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: battery_bottom
+    second: {fileID: 2100000, guid: 380341aa6452d8e488d6032e058a2447, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: battery_top
+    second: {fileID: 2100000, guid: 701fc532b194aab4f8cd355a9d25b950, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal
+    second: {fileID: 2100000, guid: 965d96606932d6743a3863c7b440724c, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

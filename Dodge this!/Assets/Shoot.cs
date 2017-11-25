@@ -65,6 +65,7 @@ public class Shoot : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Keypad1)) gun = 0;
         if (Input.GetKeyUp(KeyCode.Keypad2)) gun = 1;
+        if (Input.GetKeyUp(KeyCode.Keypad3)) gun = 2;
         fireRate = guns[gun].fireRate;
 
        
