@@ -5,10 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     CharacterController controller;
-    private float speed = 6.0f;
+    private float speed = 10.0f;
     private float turnSpeed = 200.0f;
     private Vector3 moveDirection = Vector3.zero;
-    private float gravity = 20.0f;
+    private float gravity = 1000.0f;
 
     // Use this for initialization
     void Start () {
