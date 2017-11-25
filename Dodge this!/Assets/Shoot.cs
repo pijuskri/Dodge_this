@@ -28,6 +28,7 @@ public class Shoot : MonoBehaviour
     private int gun = 0;
     private float nextFireTime;
     private float nextShootTime=0;
+    int shotgunShots = 0;
 
     void Start()
     {
@@ -45,18 +46,18 @@ public class Shoot : MonoBehaviour
 
         guns[1] = new Gun();
         guns[1].name = "shotgun";
-        guns[1].bullets = 30;
+        guns[1].bullets = 7;
         guns[1].damage = 15;
         guns[1].fireRate = 1.5f;
         guns[1].fireMode = "semi";
         guns[1].gunObject = gunObjects[1];
-        guns[1].bullet = bulletObjects[0];
+        guns[1].bullet = bulletObjects[1];
 
         guns[2] = new Gun();
         guns[2].name = "smg";
         guns[2].bullets = 1;
         guns[2].damage = 10;
-        guns[2].fireRate = 0.01f;
+        guns[2].fireRate = 0.2f;
         guns[2].fireMode = "auto";
         guns[2].gunObject = gunObjects[2];
         guns[2].bullet = bulletObjects[0];
@@ -91,6 +92,8 @@ public class Shoot : MonoBehaviour
                 shoot();
             }
         }
+        if (shotgunShots > 0 && gun==1) ShootShotgun();
+        if (gun != 1) shotgunShots = 0;
     }
     void shoot()
     {
@@ -113,24 +116,34 @@ public class Shoot : MonoBehaviour
         }
         else
         {
-            Quaternion rand;
-            for (int i = 0; i < guns[gun].bullets; i++)
-            {
-                if (Time.time > nextShootTime)
-                {
-                    rand = Quaternion.Euler(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
-
-                    cloneRb = Instantiate(projectile, bulletSpawn.position, bulletSpawn.rotation * rand) as Rigidbody;
-                    cloneRb.AddForce(cloneRb.transform.forward * projectileForce);
-
-                    cloneRb.gameObject.GetComponent<CollisionPhysics>().player = gameObject;
-                    cloneRb.gameObject.GetComponent<CollisionPhysics>().damage = (float)guns[gun].damage;
-                    nextShootTime = Time.time + 0.02f;
-                }
-                //else i--;
-                if (Time.time > 10) break;
-            }
+            shotgunShots = guns[gun].bullets * 2;
         }
         nextFireTime = Time.time + fireRate;
+    }
+    void ShootShotgun()
+    {
+        //Debug.Log(shotgunShots);
+
+        Transform bulletSpawn = guns[gun].gunObject.transform;
+        Rigidbody projectile = guns[gun].bullet.GetComponent<Rigidbody>();
+        Quaternion rand;
+        Rigidbody cloneRb = new Rigidbody();
+        if (Time.time > nextShootTime)
+        {
+            for (int i = 3; i > 0 && shotgunShots > 0; i--)
+            {
+                rand = Quaternion.Euler(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
+
+                cloneRb = Instantiate(projectile, bulletSpawn.position, bulletSpawn.rotation * rand) as Rigidbody;
+                cloneRb.AddForce(cloneRb.transform.forward * projectileForce);
+
+                cloneRb.gameObject.GetComponent<CollisionPhysics>().player = gameObject;
+                cloneRb.gameObject.GetComponent<CollisionPhysics>().damage = (float)guns[gun].damage;
+                
+                shotgunShots--;
+            }
+            nextShootTime = Time.time + 0.01f;
+        }
+        //Debug.Log(Time.time);
     }
 }

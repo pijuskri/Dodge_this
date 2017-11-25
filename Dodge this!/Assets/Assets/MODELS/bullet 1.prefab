@@ -239,3 +239,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minVelocity: 10
   dead: 0
+  damage: 0
+  player: {fileID: 0}
