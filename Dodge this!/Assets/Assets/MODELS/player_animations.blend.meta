@@ -32,6 +32,8 @@ ModelImporter:
     4300000: player
     7400000: Default Take
     7400002: ArmatureAction
+    7400004: idle_001
+    7400006: run
     9500000: //RootNode
     13700000: player
   externalObjects:

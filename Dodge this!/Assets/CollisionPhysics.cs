@@ -9,40 +9,69 @@ public class CollisionPhysics : MonoBehaviour {
 
     [SerializeField]
     private float minVelocity = 10f;
+    public int dead = 0;
 
     private Vector3 lastFrameVelocity;
     private Rigidbody rb;
+
+    float time=0;
 
     private void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = initialVelocity;
+        gameObject.GetComponent<MeshCollider>().enabled = false;
     }
 
     private void Update()
     {
+        time += Time.deltaTime;
+        if(time>0.1f) gameObject.GetComponent<MeshCollider>().enabled = true;
         lastFrameVelocity = rb.velocity;
+        if (rb.velocity == new Vector3(0, 0, 0)) { Destroy(gameObject); return; }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.red, 2.0f);
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            Debug.DrawRay(contact.point, contact.normal, Color.red, 2.0f);
-        }
+        if (collision.gameObject.tag == "bullet") { Destroy(collision.gameObject); Destroy(gameObject); Destroy(collision.gameObject);return;}
+
         Bounce(collision.contacts[0].normal);
     }
 
     private void Bounce(Vector3 collisionNormal)
     {
+        dead++;
+        if (dead > 3) { Destroy(gameObject);return; }
 
         var speed = lastFrameVelocity.magnitude * 0.8f;
-        var direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
-        var angle = Vector3.Angle(lastFrameVelocity, collisionNormal);
-        var anglex = (collisionNormal.x - lastFrameVelocity.x) * 45;
-        var angley = 90 + lastFrameVelocity.y * 90;
-        var anglez = (collisionNormal.z - lastFrameVelocity.z) * 45;
+
+       // Debug.Log("Out Direction: " + collisionNormal);
+        
+        Vector3 direction = new Vector3();
+        //direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
+        
+        Vector3 t = new Vector3();
+        if (Mathf.Abs(Mathf.Abs(collisionNormal.x) - 1 )< 0.2)
+        {
+            if (collisionNormal.x > 0) t = new Vector3(1, 0, 0);
+            if (collisionNormal.x < 0) t = new Vector3(-1, 0, 0);
+            direction = Vector3.Reflect(lastFrameVelocity.normalized, t);
+            //Debug.Log("Out Direction: " + t);
+        }
+        if (Mathf.Abs(Mathf.Abs(collisionNormal.y) - 1 )< 0.2)
+        {
+            if (collisionNormal.y > 0) t = new Vector3(0, 1, 0);
+            if (collisionNormal.y < 0) t = new Vector3(0, -1, 0);
+            direction = Vector3.Reflect(lastFrameVelocity.normalized, t);
+            //Debug.Log("Out Direction: " + t);
+        }
+        if (Mathf.Abs(Mathf.Abs(collisionNormal.z) - 1 )< 0.2)
+        {
+            if (collisionNormal.z > 0) t = new Vector3(0, 0, 1);
+            if (collisionNormal.z < 0) t = new Vector3(0, 0, -1);
+            direction = Vector3.Reflect(lastFrameVelocity.normalized, t);
+            //Debug.Log("Out Direction: " + t);
+        }
 
         double lol=0;
         //if(gameObject.transform.position.x!=0) lol = Mathf.Atan(gameObject.transform.position.y / gameObject.transform.position.x) / Mathf.PI * 180;
@@ -54,14 +83,27 @@ public class CollisionPhysics : MonoBehaviour {
         //gameObject.transform.Rotate( 180 - direction.y*90 - gameObject.transform.rotation.y * 90 , 0, 0);
         //gameObject.transform.rotation = new Quaternion(1 - direction.y, gameObject.transform.rotation.y, 0, 0);
         Vector3 temp = gameObject.transform.rotation.eulerAngles;
-        Debug.Log("Out Direction: " + collisionNormal + " ;   Angles: " + temp.x + " ;  New Angle: " + gameObject.transform.rotation);
-        if (collisionNormal.y == -1 || collisionNormal.y == 1) gameObject.transform.rotation = Quaternion.Euler(180-temp.x, temp.y, temp.z);
-        if (collisionNormal.x == -1 || collisionNormal.x == 1) gameObject.transform.rotation = Quaternion.Euler(temp.x, temp.y, 180 - temp.z);
-        if (collisionNormal.z == -1 || collisionNormal.z == 1) gameObject.transform.rotation = Quaternion.Euler(temp.x,180 - temp.y, temp.z);
+        //Debug.Log("Out Direction: " + collisionNormal + " ;   Angles: " + temp.x);
+
+
+        
+        if (Mathf.Abs(Mathf.Abs(collisionNormal.y) - 1) < 0.2) gameObject.transform.rotation = Quaternion.Euler(180-temp.x,temp.y,temp.z);
+        if (Mathf.Abs(Mathf.Abs(collisionNormal.x) - 1) < 0.2) gameObject.transform.rotation = Quaternion.Euler(temp.x,  180 - temp.y, temp.z);
+        if (Mathf.Abs(Mathf.Abs(collisionNormal.z) - 1) < 0.2) gameObject.transform.rotation = Quaternion.Euler(temp.x,180 - temp.y, temp.z);
+        
+        /*
+        if (Mathf.Abs(collisionNormal.y) > 0.2f && Mathf.Abs(collisionNormal.x) > 0.2f) gameObject.transform.rotation = Quaternion.Euler((180 - temp.x)*Mathf.Abs(collisionNormal.x), 180 - temp.y, temp.z);
+        else if (Mathf.Abs(collisionNormal.y) > 0.2f && Mathf.Abs(collisionNormal.z) > 0.2f) gameObject.transform.rotation = Quaternion.Euler(temp.x, 180 - temp.y,180 - temp.z);
+        else if (Mathf.Abs(collisionNormal.x) > 0.2f && Mathf.Abs(collisionNormal.z) > 0.2f) gameObject.transform.rotation = Quaternion.Euler(180 - temp.x, temp.y, 180 - temp.z);
+        else if (Mathf.Abs(collisionNormal.y) > 0.2f) gameObject.transform.rotation = Quaternion.Euler(180 - temp.x, temp.y, temp.z);
+        else if (Mathf.Abs(collisionNormal.x) > 0.2f) gameObject.transform.rotation = Quaternion.Euler(temp.x, 180 - temp.y, temp.z);
+        else if (Mathf.Abs(collisionNormal.z) > 0.2f) gameObject.transform.rotation = Quaternion.Euler(temp.x, 180 - temp.y,temp.z);
+        */
+        // Debug.Log(" ;  New Angle: " + gameObject.transform.rotation.eulerAngles);
         // gameObject.transform.rotation = Quaternion.Euler( (1 - direction.x)*90 / gameObject.transform.rotation.w, gameObject.transform.rotation.y * 90 / gameObject.transform.rotation.w, gameObject.transform.rotation.z * 90 / gameObject.transform.rotation.w);
         //gameObject.transform.Rotate( 180 - direction.x * 90, 0,0);
         //gameObject.transform.rotation. = new  (180 - angle, 0 , 0); 
-       
+
         //rb.rotation. = ;
         //Vector3 kl = new Vector3(0, 0, 0);
         //Debug.Log(Quaternion.Euler(90,0,90));
