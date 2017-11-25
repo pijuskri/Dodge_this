@@ -23,7 +23,7 @@ public class Shoot : MonoBehaviour
     public AudioSource audioSource;
 
    
-    private float projectileForce = 2000f;
+    private float projectileForce = 4000f;
     private float fireRate = .25f;
     private int gun = 0;
     private float nextFireTime;
@@ -35,7 +35,7 @@ public class Shoot : MonoBehaviour
         guns[0] = new Gun();
         guns[0].name = "pistol";
         guns[0].bullets = 1;
-        guns[0].damage = 1;
+        guns[0].damage = 15;
         guns[0].fireRate = 0.35f;
         guns[0].fireMode = "semi";
         guns[0].gunObject = gunObjects[0];
@@ -45,17 +45,17 @@ public class Shoot : MonoBehaviour
         guns[1] = new Gun();
         guns[1].name = "shotgun";
         guns[1].bullets = 7;
-        guns[1].damage = 1;
-        guns[1].fireRate = 1f;
+        guns[1].damage = 15;
+        guns[1].fireRate = 1.5f;
         guns[1].fireMode = "semi";
         guns[1].gunObject = gunObjects[1];
-        guns[1].bullet = bulletObjects[1];
+        guns[1].bullet = bulletObjects[0];
 
         guns[2] = new Gun();
         guns[2].name = "smg";
         guns[2].bullets = 1;
-        guns[2].damage = 1;
-        guns[2].fireRate = 0.1f;
+        guns[2].damage = 10;
+        guns[2].fireRate = 0.2f;
         guns[2].fireMode = "auto";
         guns[2].gunObject = gunObjects[2];
         guns[2].bullet = bulletObjects[0];
@@ -70,7 +70,7 @@ public class Shoot : MonoBehaviour
 
        
 
-        for (int i = 0; i < guns.Length-1; i++)
+        for (int i = 0; i < guns.Length; i++)
         {
             guns[i].gunObject.SetActive(false);
             guns[gun].gunObject.SetActive(true);
@@ -100,10 +100,15 @@ public class Shoot : MonoBehaviour
         ParticleSystem muzzleFlash = guns[gun].gunObject.GetComponentInChildren<ParticleSystem>();
         muzzleFlash.Play();
         //Debug.Log(gun);
+
+        Rigidbody cloneRb= new Rigidbody();
         if (guns[gun].bullets == 1)
         {
-            Rigidbody cloneRb = Instantiate(projectile, bulletSpawn.position, bulletSpawn.rotation) as Rigidbody;
+            cloneRb = Instantiate(projectile, bulletSpawn.position, bulletSpawn.rotation) as Rigidbody;
             cloneRb.AddForce(bulletSpawn.transform.forward * projectileForce);
+
+            cloneRb.gameObject.GetComponent<CollisionPhysics>().player = gameObject;
+            cloneRb.gameObject.GetComponent<CollisionPhysics>().damage = (float)guns[gun].damage;
         }
         else
         {
@@ -112,10 +117,14 @@ public class Shoot : MonoBehaviour
                 Quaternion rand;
                 rand = Quaternion.Euler(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
                 //rand = Random.rotation;
-                Rigidbody cloneRb = Instantiate(projectile, bulletSpawn.position, bulletSpawn.rotation * rand) as Rigidbody;
+                cloneRb = Instantiate(projectile, bulletSpawn.position, bulletSpawn.rotation * rand) as Rigidbody;
                 cloneRb.AddForce(cloneRb.transform.forward * projectileForce);
+
+                cloneRb.gameObject.GetComponent<CollisionPhysics>().player = gameObject;
+                cloneRb.gameObject.GetComponent<CollisionPhysics>().damage = (float)guns[gun].damage;
             }
         }
+        
         nextFireTime = Time.time + fireRate;
     }
 }
