@@ -7,7 +7,7 @@ public class Gun
     public int bullets;
     public double damage;
     public float fireRate;
-
+    public GameObject gunObject;
     public Gun() { }
 }
 public class Shoot : MonoBehaviour
@@ -23,7 +23,7 @@ public class Shoot : MonoBehaviour
 
     void Start()
     {
-        guns[0] =  new Gun();
+        guns[0] = new Gun();
         guns[0].name = "pistol";
         guns[0].bullets = 1;
         guns[0].damage = 1;
