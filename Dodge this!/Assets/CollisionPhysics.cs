@@ -10,9 +10,12 @@ public class CollisionPhysics : MonoBehaviour {
     [SerializeField]
     private float minVelocity = 10f;
     public int dead = 0;
+    public float damage = 0;
 
     private Vector3 lastFrameVelocity;
     private Rigidbody rb;
+
+    public GameObject player;
 
     float time=0;
 
@@ -26,7 +29,9 @@ public class CollisionPhysics : MonoBehaviour {
     private void Update()
     {
         time += Time.deltaTime;
-        if(time>0.1f) gameObject.GetComponent<MeshCollider>().enabled = true;
+        if(time>0.05f) gameObject.GetComponent<MeshCollider>().enabled = true;
+        if (time > 10f) { Destroy(gameObject); return; }
+        //Debug.Log(time);
         lastFrameVelocity = rb.velocity;
         if (rb.velocity == new Vector3(0, 0, 0)) { Destroy(gameObject); return; }
     }
@@ -34,7 +39,7 @@ public class CollisionPhysics : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "bullet") { Destroy(collision.gameObject); Destroy(gameObject); Destroy(collision.gameObject);return;}
-
+        if (collision.gameObject.tag == "player") { player.GetComponent<Player>().health -= damage; Destroy(gameObject); return; }
         Bounce(collision.contacts[0].normal);
     }
 
@@ -42,9 +47,9 @@ public class CollisionPhysics : MonoBehaviour {
     {
         dead++;
         if (dead > 3) { Destroy(gameObject);return; }
-        if(time > 5f) { Destroy(gameObject); return; }
+      
 
-        var speed = lastFrameVelocity.magnitude * 0.8f;
+       var speed = lastFrameVelocity.magnitude * 0.8f;
 
        // Debug.Log("Out Direction: " + collisionNormal);
         
