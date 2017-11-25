@@ -1,57 +1,43 @@
 fileFormatVersion: 2
-guid: b0a703868c0a1194bbb7c763a00fe229
-timeCreated: 1511565763
+guid: bb42f88349cebe24bbeb55f00f9ae9e3
+timeCreated: 1511618766
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: corriddor_1
-    100004: corridor_3
-    100006: main
     400000: //RootNode
-    400002: corriddor_1
-    400004: corridor_3
-    400006: main
     2300000: //RootNode
-    2300002: corriddor_1
-    2300004: corridor_3
-    2300006: main
     3300000: //RootNode
-    3300002: corriddor_1
-    3300004: corridor_3
-    3300006: main
-    4300000: Plane
-    4300002: corridor_3
-    4300004: main
-    4300006: corriddor_1
-    6400000: //RootNode
-    6400002: corriddor_1
-    6400004: corridor_3
-    6400006: main
+    4300000: Cube
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ground
-    second: {fileID: 2100000, guid: a79694b91e28fa84d8e26bdde655428b, type: 2}
+      name: coil
+    second: {fileID: 2100000, guid: 6456bb0495721ec47bf88d66f36ce9c4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: obsticles
-    second: {fileID: 2100000, guid: 2214f8750d2206948acc9a088093bbf5, type: 2}
+      name: feet
+    second: {fileID: 2100000, guid: 37f2f873b6bac684dbbe31e32892cd79, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: roof
-    second: {fileID: 2100000, guid: 0c7a98c00aba95d44af964932b1bd2f7, type: 2}
+      name: frame
+    second: {fileID: 2100000, guid: 1513594192431344c8bee370fe41fe90, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: wall
-    second: {fileID: 2100000, guid: a94d64c2c5b610d4890683e2080f0398, type: 2}
+      name: legs
+    second: {fileID: 2100000, guid: 218b70117ef680848952f2f06a1139ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_balls
+    second: {fileID: 2100000, guid: 774707e948c3de04da6750ae38da7be4, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -83,7 +69,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
