@@ -8,14 +8,20 @@ public class Gun
     public double damage;
     public float fireRate;
     public GameObject gunObject;
+    public GameObject bullet;
     public Gun() { }
 }
 public class Shoot : MonoBehaviour
 {
     public Gun[] guns = new Gun[3];
-    
-    public Rigidbody projectile;
-    public Transform bulletSpawn;
+
+    public GameObject[] gunObjects;
+    public GameObject[] bulletObjects;
+
+    public AudioClip[] gunSounds;
+    public AudioSource audioSource;
+
+   
     private float projectileForce = 2000f;
     private float fireRate = .25f;
     private int gun = 0;
@@ -23,17 +29,24 @@ public class Shoot : MonoBehaviour
 
     void Start()
     {
+        audioSource = gameObject.GetComponentInChildren<AudioSource>();
+
         guns[0] = new Gun();
         guns[0].name = "pistol";
         guns[0].bullets = 1;
         guns[0].damage = 1;
         guns[0].fireRate = 0.25f;
+        guns[0].gunObject = gunObjects[0];
+        guns[0].bullet = bulletObjects[0];
+
 
         guns[1] = new Gun();
         guns[1].name = "shotgun";
         guns[1].bullets = 7;
         guns[1].damage = 1;
         guns[1].fireRate = 1f;
+        guns[1].gunObject = gunObjects[1];
+        guns[1].bullet = bulletObjects[1];
     }
     // Update is called once per frame
     void Update()
@@ -42,9 +55,20 @@ public class Shoot : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Keypad2)) gun = 1;
         fireRate = guns[gun].fireRate;
 
+        Transform bulletSpawn = guns[gun].gunObject.transform;
+        Rigidbody projectile = guns[gun].bullet.GetComponent<Rigidbody>();
+
+        for (int i = 0; i < guns.Length-1; i++)
+        {
+            guns[i].gunObject.SetActive(false);
+            guns[gun].gunObject.SetActive(true);
+        }
 
         if (Input.GetButtonDown("Fire2") && Time.time > nextFireTime)
         {
+            audioSource.PlayOneShot(gunSounds[gun]);
+            ParticleSystem muzzleFlash = guns[gun].gunObject.GetComponentInChildren<ParticleSystem>();
+            muzzleFlash.Play();
             //Debug.Log(gun);
             if (guns[gun].bullets == 1)
             {
