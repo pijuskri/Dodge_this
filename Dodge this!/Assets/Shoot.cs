@@ -118,7 +118,6 @@ namespace Com.pijuskri.test
                 cloneRb = PhotonNetwork.Instantiate(projectile.name, bulletSpawn.position, bulletSpawn.rotation,0);
                 cloneRb.GetComponent<Rigidbody>().AddForce(bulletSpawn.transform.forward * projectileForce);
 
-                cloneRb.GetComponent<CollisionPhysics>().player = gameObject;
                 cloneRb.GetComponent<CollisionPhysics>().damage = (float)guns[gun].damage;
             }
             else
@@ -145,7 +144,6 @@ namespace Com.pijuskri.test
                     cloneRb = PhotonNetwork.Instantiate(projectile.name, bulletSpawn.position, bulletSpawn.rotation * rand, 0);
                     cloneRb.GetComponent<Rigidbody>().AddForce(bulletSpawn.transform.forward * projectileForce);
 
-                    cloneRb.GetComponent<CollisionPhysics>().player = gameObject;
                     cloneRb.GetComponent<CollisionPhysics>().damage = (float)guns[gun].damage;
 
                     shotgunShots--;

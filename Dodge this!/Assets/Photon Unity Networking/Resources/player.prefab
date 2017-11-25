@@ -1814,6 +1814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   viewCamera: {fileID: 1076580119622236}
+  logic: {fileID: 1227890302672462, guid: 6edf6e4254011eb4982a2258689c353e, type: 2}
 --- !u!114 &114137335739310410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2014,11 +2015,10 @@ MonoBehaviour:
     BobAmount: 0
   m_StepInterval: 15
   m_FootstepSounds:
-  - {fileID: 8300000, guid: 7d93183d7fa55d34fa5e60699b70656f, type: 3}
+  - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
   - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   - {fileID: 8300000, guid: 5a9383dda6cabc047b7a297602e93eb4, type: 3}
-  - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
 --- !u!124 &124361715915262826
@@ -2094,7 +2094,7 @@ CharacterController:
   m_GameObject: {fileID: 1101711637514896}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Height: 5.5
   m_Radius: 1

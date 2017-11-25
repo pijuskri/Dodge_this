@@ -24,6 +24,8 @@ namespace Com.pijuskri.test
         public void LeaveRoom()
         {
             PhotonNetwork.LeaveRoom();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             SceneManager.LoadScene("Launcher");
         }
 
@@ -49,12 +51,20 @@ namespace Com.pijuskri.test
         }
         #endregion
         #region Private Methods
-       /* float time = 0;
+        /* float time = 0;
+         private void Update()
+         {
+             time += Time.deltaTime;
+             if(time>10) Application.Quit();
+         }*/
         private void Update()
         {
-            time += Time.deltaTime;
-            if(time>10) Application.Quit();
-        }*/
+            if (SceneManager.GetActiveScene().name == "Launcher")
+            {
+                if (Cursor.lockState != CursorLockMode.None) { Cursor.lockState = CursorLockMode.None; Cursor.visible = true; }
+                
+            }
+        }
 
         void LoadArena()
         {
@@ -106,6 +116,8 @@ namespace Com.pijuskri.test
         public override void OnLeftRoom()
         {
             //SceneManager.LoadScene(0);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             SceneManager.LoadScene("Launcher");
         }
 

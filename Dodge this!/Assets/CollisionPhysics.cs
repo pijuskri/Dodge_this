@@ -17,8 +17,6 @@ namespace Com.pijuskri.test {
         private Vector3 lastFrameVelocity;
         private Rigidbody rb;
 
-        public GameObject player;
-
         //public static GameObject gameObject;
 
         float time = 0;
@@ -44,7 +42,7 @@ namespace Com.pijuskri.test {
         {
             //Debug.Log("lol");
             //if (collision.gameObject.tag == "bullet") { Destroy(collision.gameObject); Destroy(gameObject); Destroy(collision.gameObject);return;}
-            if (collision.gameObject.tag == "player") { player.GetComponent <Player> ().health -= damage; Destroy(gameObject); Debug.Log("hit player"); return; }
+            if (collision.gameObject.tag == "Player") { collision.gameObject.GetComponent <Player> ().health -= damage; Destroy(gameObject); Debug.Log("hit player"); return; }
             Bounce(collision.contacts[0].normal);
         }
 

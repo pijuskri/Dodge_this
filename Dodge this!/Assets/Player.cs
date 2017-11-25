@@ -16,6 +16,7 @@ namespace Com.pijuskri.test
         private float gravity = 20.0f;
 
         public GameObject viewCamera;
+        public GameObject logic;
 
         // Use this for initialization
         private void Awake()
@@ -37,7 +38,7 @@ namespace Com.pijuskri.test
             if (photonView.isMine)
             {
                 //gameObject.GetComponent<Player>().enabled = true;
-                gameObject.GetComponent<CharacterController>().enabled = true;
+                //gameObject.GetComponent<CharacterController>().enabled = true;
                 gameObject.GetComponent<Shoot>().enabled = true;
                 gameObject.GetComponent<FirstPersonController>().enabled = true;
                 viewCamera.SetActive(true);
@@ -67,7 +68,10 @@ namespace Com.pijuskri.test
             {
                 return;
             }
-           // if (health < 1) Destroy(gameObject);
+            if (health < 1)
+            {
+                logic.GetComponent<GameMechanics>().LeaveRoom();
+            }
             
 
             //gameObject.GetComponent<Shoot>().Cycle();
