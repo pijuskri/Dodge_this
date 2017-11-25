@@ -8,15 +8,25 @@ ModelImporter:
     100000: Cube
     100002: Cylinder
     100004: //RootNode
+    100006: Cube_001
+    100008: Cube_002
     400000: Cube
     400002: Cylinder
     400004: //RootNode
+    400006: Cube_001
+    400008: Cube_002
     2300000: Cube
     2300002: Cylinder
+    2300004: Cube_001
+    2300006: Cube_002
     3300000: Cube
     3300002: Cylinder
+    3300004: Cube_001
+    3300006: Cube_002
     4300000: Cylinder
     4300002: Cube
+    4300004: Cube_002
+    4300006: Cube_001
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
@@ -25,6 +35,21 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Material
     second: {fileID: 2100000, guid: 5755b5e7e20363a4ca17435a01773fd1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grip
+    second: {fileID: 2100000, guid: 2bc0f7b9d8f11b14f9eb3f84d676fb0a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gun
+    second: {fileID: 2100000, guid: 5bf3b829f30c89e4787082a1916a56e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shiny_bit
+    second: {fileID: 2100000, guid: 75dc1d209fe0178459f07a314da9ff92, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
