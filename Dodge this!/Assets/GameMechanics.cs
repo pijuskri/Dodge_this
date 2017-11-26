@@ -20,6 +20,8 @@ namespace Com.pijuskri.test
 
         #region Public Methods
 
+        public AudioClip menuMusic;
+        public AudioSource audioSource;
 
         public void LeaveRoom()
         {
@@ -31,6 +33,7 @@ namespace Com.pijuskri.test
 
         void Start()
         {
+            audioSource = gameObject.GetComponent<AudioSource>();
             if (playerPrefab == null)
             {
                 Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
@@ -41,7 +44,7 @@ namespace Com.pijuskri.test
                 {
                     Debug.Log("We are Instantiating LocalPlayer from " + Application.loadedLevelName);
                     // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-                    PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(20f, 2f, -20f), Quaternion.identity, 0);
+                    PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(85f, 3f, 110f), Quaternion.identity, 0);
                 }
                 else
                 {
@@ -61,6 +64,7 @@ namespace Com.pijuskri.test
         {
             if (SceneManager.GetActiveScene().name == "Launcher")
             {
+                audioSource.PlayOneShot(menuMusic);
                 if (Cursor.lockState != CursorLockMode.None) { Cursor.lockState = CursorLockMode.None; Cursor.visible = true; }
                 
             }
