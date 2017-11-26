@@ -18,6 +18,10 @@ namespace Com.pijuskri.test
         public GameObject viewCamera;
         public GameObject logic;
 
+        private Vector3 position;
+        private Quaternion rotation;
+        float lerpSmoothing = 5f;
+
         // Use this for initialization
         private void Awake()
         {
@@ -77,7 +81,7 @@ namespace Com.pijuskri.test
             //gameObject.GetComponent<Shoot>().Cycle();
         }
 
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        /*public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (stream.isWriting)
             {
@@ -89,8 +93,7 @@ namespace Com.pijuskri.test
                 Vector3 pos = Vector3.zero;
                 stream.Serialize(ref pos);  // pos gets filled-in. must be used somewhere
             }
-        }
-
+        }*/
         void CalledOnLevelWasLoaded(int level)
         {
             // check if we are outside the Arena and if it's the case, spawn around the center of the arena in a safe zone
@@ -100,6 +103,26 @@ namespace Com.pijuskri.test
             }
         }
 
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.isWriting)
+            {
+                stream.SendNext(transform.position);
+                stream.SendNext(transform.position);
+            }
+            else
+            {
+                position = (Vector3)stream.ReceiveNext();
+                rotation = (Quaternion)stream.ReceiveNext();
+            }
+        }
+
+        IEnumerator Alive()
+        {
+            transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing);
+            transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing);
+            yield return null;
+        }
         
         /*
         CharacterController controller;

@@ -17,6 +17,10 @@ namespace Com.pijuskri.test {
         private Vector3 lastFrameVelocity;
         private Rigidbody rb;
 
+        private Vector3 position;
+        private Quaternion rotation;
+
+        float lerpSmoothing = 5f;
         //public static GameObject gameObject;
 
         float time = 0;
@@ -121,14 +125,22 @@ namespace Com.pijuskri.test {
         {
             if (stream.isWriting)
             {
-                Vector3 pos = transform.localPosition;
-                stream.Serialize(ref pos);
+                stream.SendNext(transform.position);
+                stream.SendNext(transform.position);
             }
             else
             {
-                Vector3 pos = Vector3.zero;
-                stream.Serialize(ref pos);  // pos gets filled-in. must be used somewhere
+                position = (Vector3)stream.ReceiveNext();
+                rotation = (Quaternion)stream.ReceiveNext();
             }
+        }
+
+
+        IEnumerator Alive()
+        {
+            transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing);
+            transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing);
+            yield return null;
         }
 
         /*public float maxAngle = 95;
