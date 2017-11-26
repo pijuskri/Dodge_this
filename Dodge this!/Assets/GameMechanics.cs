@@ -52,6 +52,11 @@ namespace Com.pijuskri.test
                 }
             }
         }
+        void OnPhotonInstantiate(PhotonMessageInfo info)
+        {
+            // e.g. store this gameobject as this player's charater in PhotonPlayer.TagObject
+            info.sender.NickName = Convert.ToString(UnityEngine.Random.Range(0,100));
+        }
         #endregion
         #region Private Methods
         /* float time = 0;
