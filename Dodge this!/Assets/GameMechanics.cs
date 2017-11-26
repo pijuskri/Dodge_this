@@ -60,12 +60,7 @@ namespace Com.pijuskri.test
         }
         #endregion
         #region Private Methods
-        /* float time = 0;
-         private void Update()
-         {
-             time += Time.deltaTime;
-             if(time>10) Application.Quit();
-         }*/
+     
         private void Update()
         {
             if (SceneManager.GetActiveScene().name == "Launcher")

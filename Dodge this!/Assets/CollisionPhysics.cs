@@ -47,8 +47,13 @@ namespace Com.pijuskri.test {
             //Debug.Log("lol");
             //if (collision.gameObject.tag == "bullet") { Destroy(collision.gameObject); Destroy(gameObject); Destroy(collision.gameObject);return;}
             // if (collision.gameObject.tag == "Player") { damagePlayer(damage, collision.gameObject.GetComponent<PhotonView>().owner.NickName); Destroy(gameObject); return; }
-            if (collision.gameObject.tag == "Player") { photonView.RPC("damagePlayer", PhotonTargets.All,
-                damage, collision.gameObject.GetComponent<PhotonView>().owner.NickName ); PhotonNetwork.Destroy(gameObject); return; }
+            if (collision.gameObject.tag == "Player")
+            {
+                photonView.RPC("damagePlayer", PhotonTargets.All,
+                damage, collision.gameObject.GetComponent<PhotonView>().owner.NickName );
+                if(photonView.isMine) PhotonNetwork.Destroy(gameObject);
+                return;
+            }
             
             Bounce(collision.contacts[0].normal);
         }
@@ -138,7 +143,7 @@ namespace Com.pijuskri.test {
             //Vector3 kl = new Vector3(0, 0, 0);
             //Debug.Log(Quaternion.Euler(90,0,90));
         }
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        /*public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (stream.isWriting)
             {
@@ -159,6 +164,7 @@ namespace Com.pijuskri.test {
             transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing);
             yield return null;
         }
+        */
 
         /*public float maxAngle = 95;
 

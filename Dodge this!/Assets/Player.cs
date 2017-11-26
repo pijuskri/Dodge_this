@@ -22,6 +22,9 @@ namespace Com.pijuskri.test
         private Quaternion rotation;
         float lerpSmoothing = 5f;
 
+        [Tooltip("The Player's UI GameObject Prefab")]
+        public GameObject PlayerUiPrefab;
+
         // Use this for initialization
         private void Awake()
         {
@@ -46,10 +49,20 @@ namespace Com.pijuskri.test
                 gameObject.GetComponent<Shoot>().enabled = true;
                 gameObject.GetComponent<FirstPersonController>().enabled = true;
                 viewCamera.SetActive(true);
-
+                Canvas UI = FindObjectOfType<Canvas>();
+                UI.worldCamera = viewCamera.GetComponent<Camera>();
+            }
+            if (PlayerUiPrefab != null)
+            {
+                GameObject _uiGo = Instantiate(PlayerUiPrefab) as GameObject;
+                _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            }
+            else
+            {
+                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
             }
 
-                CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
+            CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
             
 
             if (_cameraWork != null)
@@ -68,6 +81,7 @@ namespace Com.pijuskri.test
         // Update is called once per frame
         void Update()
         {
+
             if (photonView.isMine == false && PhotonNetwork.connected == true)
             {
                 return;
@@ -101,6 +115,8 @@ namespace Com.pijuskri.test
             {
                 transform.position = new Vector3(0f, 5f, 0f);
             }
+            GameObject _uiGo = Instantiate(this.PlayerUiPrefab) as GameObject;
+            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

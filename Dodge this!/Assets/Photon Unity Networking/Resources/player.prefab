@@ -1815,6 +1815,8 @@ MonoBehaviour:
   health: 100
   viewCamera: {fileID: 1076580119622236}
   logic: {fileID: 1227890302672462, guid: 6edf6e4254011eb4982a2258689c353e, type: 2}
+  PlayerUiPrefab: {fileID: 1855559899758052, guid: 57748dd2110968641ba6770f9592b010,
+    type: 2}
 --- !u!114 &114137335739310410
 MonoBehaviour:
   m_ObjectHideFlags: 1
