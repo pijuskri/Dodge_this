@@ -279,7 +279,6 @@ MonoBehaviour:
   minVelocity: 10
   dead: 0
   damage: 0
-  player: {fileID: 0}
 --- !u!114 &114394365302832812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -323,7 +322,7 @@ MonoBehaviour:
     TeleportIfDistanceGreaterThan: 3
     InterpolateOption: 4
     InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 15
+    InterpolateLerpSpeed: 50
     InterpolateMoveTowardsAcceleration: 2
     InterpolateMoveTowardsDeceleration: 2
     InterpolateSpeedCurve:
@@ -356,16 +355,16 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    ExtrapolateOption: 0
+    ExtrapolateOption: 1
     ExtrapolateSpeed: 1
     ExtrapolateIncludingRoundTripTime: 1
     ExtrapolateNumberOfStoredPositions: 1
     DrawErrorGizmo: 1
   m_RotationModel:
     SynchronizeEnabled: 1
-    InterpolateOption: 1
+    InterpolateOption: 2
     InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
+    InterpolateLerpSpeed: 30
   m_ScaleModel:
     SynchronizeEnabled: 0
     InterpolateOption: 0
