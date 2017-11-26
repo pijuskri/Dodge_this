@@ -94,6 +94,14 @@ namespace Com.pijuskri.test
                 stream.Serialize(ref pos);  // pos gets filled-in. must be used somewhere
             }
         }*/
+        void CalledOnLevelWasLoaded(int level)
+        {
+            // check if we are outside the Arena and if it's the case, spawn around the center of the arena in a safe zone
+            if (!Physics.Raycast(transform.position, -Vector3.up, 5f))
+            {
+                transform.position = new Vector3(0f, 5f, 0f);
+            }
+        }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
@@ -109,14 +117,6 @@ namespace Com.pijuskri.test
             }
         }
 
-        void CalledOnLevelWasLoaded(int level)
-        {
-            // check if we are outside the Arena and if it's the case, spawn around the center of the arena in a safe zone
-            if (!Physics.Raycast(transform.position, -Vector3.up, 5f))
-            {
-                transform.position = new Vector3(0f, 5f, 0f);
-            }
-        }
         IEnumerator Alive()
         {
             transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing);
