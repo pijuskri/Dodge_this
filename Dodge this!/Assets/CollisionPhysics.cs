@@ -41,7 +41,7 @@ namespace Com.pijuskri.test {
             lastFrameVelocity = rb.velocity;
             //if (rb.velocity == new Vector3(0, 0, 0)) { Destroy(gameObject); return; }
         }
-
+       // [PunRPC]
         private void OnCollisionEnter(Collision collision)
         {
             //Debug.Log("lol");
@@ -49,6 +49,10 @@ namespace Com.pijuskri.test {
             if (collision.gameObject.tag == "Player") { collision.gameObject.GetComponent <Player> ().health -= damage; Destroy(gameObject); Debug.Log("hit player"); return; }
             Bounce(collision.contacts[0].normal);
         }
+       /* void damagePlayer(float damage, )
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        }*/
 
         private void Bounce(Vector3 collisionNormal)
         {
