@@ -133,16 +133,19 @@ namespace Com.pijuskri.test
 
             Transform bulletSpawn = guns[gun].gunObject.transform;
             Rigidbody projectile = guns[gun].bullet.GetComponent<Rigidbody>();
-            Quaternion rand;
-            GameObject cloneRb = new GameObject();
+            Vector3 rand;
+            GameObject cloneRb;
             if (Time.time > nextShootTime)
             {
                 for (int i = 3; i > 0 && shotgunShots > 0; i--)
                 {
-                    rand = Quaternion.Euler(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20));
+                    rand = new Vector3(Random.Range(-10, 10), Random.Range(-15, 15), Random.Range(-15, 15));
+                   // Debug.Log((rand * bulletSpawn.rotation).eulerAngles);
 
-                    cloneRb = PhotonNetwork.Instantiate(projectile.name, bulletSpawn.position, bulletSpawn.rotation * rand, 0);
-                    cloneRb.GetComponent<Rigidbody>().AddForce(bulletSpawn.transform.forward * projectileForce);
+                    //cloneRb = PhotonNetwork.Instantiate(projectile.gameObject.name, bulletSpawn.position, Quaternion.Euler(bulletSpawn.rotation.eulerAngles + rand), 0);
+                    cloneRb = Instantiate(projectile.gameObject, bulletSpawn.position, Quaternion.Euler(bulletSpawn.rotation.eulerAngles + rand));
+                    cloneRb.GetComponent<Rigidbody>().AddForce(cloneRb.transform.forward * projectileForce);
+                    //Debug.Log(cloneRb.transform.rotation.eulerAngles);
 
                     cloneRb.GetComponent<CollisionPhysics>().damage = (float)guns[gun].damage;
 

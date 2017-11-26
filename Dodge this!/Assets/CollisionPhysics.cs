@@ -69,7 +69,8 @@ namespace Com.pijuskri.test {
                     players[i].GetComponent<Player>().health -= damage; 
                 }
             }
-             Debug.Log("hit player"); return;
+            Debug.Log("hit player");
+            return;
         }
 
         private void Bounce(Vector3 collisionNormal)
