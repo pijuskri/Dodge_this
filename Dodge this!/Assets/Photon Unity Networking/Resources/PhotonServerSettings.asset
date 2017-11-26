@@ -18,7 +18,7 @@ MonoBehaviour:
   PreferredRegion: 0
   EnabledRegions: -799
   Protocol: 0
-  ServerAddress: 127.0.0.1
+  ServerAddress: 192.168.1.213
   ServerPort: 5055
   VoiceServerPort: 5055
   JoinLobby: 0
