@@ -51,12 +51,13 @@ namespace Com.pijuskri.test
                 viewCamera.SetActive(true);
                 Canvas UI = FindObjectOfType<Canvas>();
                 UI.worldCamera = viewCamera.GetComponent<Camera>();
+                if (PlayerUiPrefab != null)
+                {
+                    GameObject _uiGo = Instantiate(PlayerUiPrefab) as GameObject;
+                    _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+                }
             }
-            if (PlayerUiPrefab != null)
-            {
-                GameObject _uiGo = Instantiate(PlayerUiPrefab) as GameObject;
-                _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-            }
+           
             else
             {
                 Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);

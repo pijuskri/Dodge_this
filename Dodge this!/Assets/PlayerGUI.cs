@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Com.pijuskri.test
 {
-    public class PlayerGUI : MonoBehaviour
+    public class PlayerGUI : Photon.PunBehaviour
     {
 
         [Tooltip("UI Text to display Player's Name")]
@@ -26,9 +26,9 @@ namespace Com.pijuskri.test
         // Use this for initialization
         void Start()
         {
-            transform.localScale = new Vector3(1, 1, 1);
-            transform.localPosition = new Vector3(150, -100, 0);
-            gameObject.GetComponent<RectTransform>().pivot = new Vector2(1,1);
+            transform.localScale = new Vector3(2, 2, 1);
+            transform.localPosition = new Vector3(-400, -200, 0);
+            gameObject.GetComponent<RectTransform>().pivot = new Vector2(0,1);
             //transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
         void Awake()
