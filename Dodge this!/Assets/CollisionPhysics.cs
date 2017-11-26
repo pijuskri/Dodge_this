@@ -27,6 +27,7 @@ namespace Com.pijuskri.test {
 
         private void OnEnable()
         {
+            
             rb = GetComponent<Rigidbody>();
             rb.velocity = initialVelocity;
             gameObject.GetComponent<MeshCollider>().enabled = false;
@@ -36,28 +37,40 @@ namespace Com.pijuskri.test {
         {
             time += Time.deltaTime;
             if (time > 0.07f) gameObject.GetComponent<MeshCollider>().enabled = true;
-            if (time > 10f) { Destroy(gameObject); Debug.Log(" time"); return; }
+            if (time > 10f) { PhotonNetwork.Destroy(gameObject); Debug.Log(" time"); return; }
             //Debug.Log(time);
             lastFrameVelocity = rb.velocity;
             //if (rb.velocity == new Vector3(0, 0, 0)) { Destroy(gameObject); return; }
         }
-       // [PunRPC]
         private void OnCollisionEnter(Collision collision)
         {
             //Debug.Log("lol");
             //if (collision.gameObject.tag == "bullet") { Destroy(collision.gameObject); Destroy(gameObject); Destroy(collision.gameObject);return;}
-            if (collision.gameObject.tag == "Player") { collision.gameObject.GetComponent <Player> ().health -= damage; Destroy(gameObject); Debug.Log("hit player"); return; }
+            // if (collision.gameObject.tag == "Player") { damagePlayer(damage, collision.gameObject.GetComponent<PhotonView>().owner.NickName); Destroy(gameObject); return; }
+            if (collision.gameObject.tag == "Player") { photonView.RPC("damagePlayer", PhotonTargets.All,
+                damage, collision.gameObject.GetComponent<PhotonView>().owner.NickName ); PhotonNetwork.Destroy(gameObject); return; }
+            
             Bounce(collision.contacts[0].normal);
         }
-       /* void damagePlayer(float damage, )
+        [PunRPC]
+        void damagePlayer(float damage, string name)
         {
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        }*/
+            for (int i = 0; i < players.Length; i++)
+            {
+                Debug.Log(players[i].GetComponent<PhotonView>().owner.NickName);
+                if(players[i].GetComponent<PhotonView>().owner.NickName == name )
+                {
+                    players[i].GetComponent<Player>().health -= damage; 
+                }
+            }
+             Debug.Log("hit player"); return;
+        }
 
         private void Bounce(Vector3 collisionNormal)
         {
             dead++;
-            if (dead > 5) { Destroy(gameObject); Debug.Log(" hit too many things"); return; }
+            if (dead > 5) { PhotonNetwork.Destroy(gameObject); Debug.Log(" hit too many things"); return; }
 
 
             var speed = lastFrameVelocity.magnitude * 0.8f;

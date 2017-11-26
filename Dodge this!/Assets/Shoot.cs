@@ -139,7 +139,7 @@ namespace Com.pijuskri.test
             {
                 for (int i = 3; i > 0 && shotgunShots > 0; i--)
                 {
-                    rand = Quaternion.Euler(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
+                    rand = Quaternion.Euler(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20));
 
                     cloneRb = PhotonNetwork.Instantiate(projectile.name, bulletSpawn.position, bulletSpawn.rotation * rand, 0);
                     cloneRb.GetComponent<Rigidbody>().AddForce(bulletSpawn.transform.forward * projectileForce);
