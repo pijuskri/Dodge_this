@@ -96,7 +96,7 @@ namespace Com.pijuskri.test
                 Debug.Log("OnPhotonPlayerConnected isMasterClient " + PhotonNetwork.isMasterClient); // called before OnPhotonPlayerDisconnected
 
 
-                LoadArena();
+                //LoadArena();
             }
         }
 
@@ -111,7 +111,7 @@ namespace Com.pijuskri.test
                 Debug.Log("OnPhotonPlayerDisonnected isMasterClient " + PhotonNetwork.isMasterClient); // called before OnPhotonPlayerDisconnected
 
 
-                LoadArena();
+                //LoadArena();
             }
         }
 
